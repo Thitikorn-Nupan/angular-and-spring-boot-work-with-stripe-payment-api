@@ -18,21 +18,18 @@ public class PaymentService {
 
     @Autowired
     public PaymentService(@Value("${STRIPE.SECRET.KEY}") final String STRIPE_SECRET_KEY) {
-        //  Sets the Stripe API key to authenticate requests. This is a one-time setup when the service is instantiated.
-        Stripe.apiKey = STRIPE_SECRET_KEY;
+        Stripe.apiKey = STRIPE_SECRET_KEY; //  Sets the Stripe API key to authenticate requests. This is a one-time setup when the service is instantiated.
     }
 
     public PaymentIntent createPaymentIntent(final PaymentInformation paymentInformation) throws StripeException {
-        List<String> paymentMethodTypes = new ArrayList<>(); //  Defines the types of payment methods accepted, in this case, just "card".
+        List<String> paymentMethodTypes = new ArrayList<>(); //  Defines the types of payment methods accepted, in this case, just "card". it can have many types
         paymentMethodTypes.add("card");
-
-        Map<String, Object> params = new HashMap<>(); //  params Constructs a map containing parameters required to create a payment intent, such as amount, currency, and payment_method_types
-        // *** key is fix named
+        Map<String, Object> params = new HashMap<>(); //  params constructs a map containing parameters required to create a payment intent, such as amount, currency, and payment_method_types
+        // *** the key is uniq name
         params.put("amount", paymentInformation.getAmount());
         params.put("currency", paymentInformation.getCurrency());
         params.put("receipt_email", paymentInformation.getSendToEmail());
         params.put("payment_method_types", paymentMethodTypes);
-
-        return PaymentIntent.create(params); //  Calls the Stripe API to create a payment intent with the provided parameters.
+        return PaymentIntent.create(params); //  calls the Stripe API to create a payment intent with the provided parameters.
     }
 }
