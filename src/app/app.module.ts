@@ -6,11 +6,13 @@ import { AppComponent } from './app.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { StripeFormComponent } from './components/stripe-form/stripe-form.component';
 import {HttpClientModule} from "@angular/common/http";
+import { CardComponent } from './components/card/card.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    StripeFormComponent
+    StripeFormComponent,
+    CardComponent
   ],
   imports: [
     BrowserModule,

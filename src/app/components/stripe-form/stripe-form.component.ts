@@ -2,34 +2,36 @@ import {Component, OnInit} from '@angular/core';
 import {loadStripe, PaymentIntentResult, Stripe, StripeCardElement, StripeCardElementOptions} from "@stripe/stripe-js";
 import {PaymentInfo} from "../../entities/payment-info";
 import {PaymentIntentService} from "../../services/payment-intent.service";
-import {environment} from "../../../environments/environment";
+import {environment} from "../../../environments/environment.development";
 
 @Component({
-  selector: 'app-stripe-form',
+  selector: 'stripe-form',
   templateUrl: './stripe-form.component.html',
   styleUrl: './stripe-form.component.css'
 })
 export class StripeFormComponent implements OnInit {
 
+  protected paymentInfo : PaymentInfo;
+  private paymentIntentService: PaymentIntentService;
   private declare cardElement: StripeCardElement;
   private stripePromise: Promise<Stripe | null> = loadStripe(environment.stripePublicKey);
-  private readonly cardOptions: StripeCardElementOptions = {
+  private readonly cardOptions : StripeCardElementOptions = {
     style: {
       base: {
         iconColor: '#2f3ae8',
         color: '#000000',
-        fontWeight: '500',
+        fontWeight: '900',
         fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
-        fontSize: '25px'
-      }
+        fontSize: '24px'
+      },
     },
     hidePostalCode: true,
   };
-  protected paymentInfo = new PaymentInfo();
-  private paymentIntentService: PaymentIntentService;
+
 
   constructor(paymentIntentService: PaymentIntentService) {
     this.paymentIntentService = paymentIntentService;
+    this.paymentInfo = new PaymentInfo()
   }
 
   ngOnInit(): void {
@@ -41,8 +43,7 @@ export class StripeFormComponent implements OnInit {
   }
 
   private loadStripeElements() {
-    this.stripePromise
-      .then((stripe: Stripe | null) => {
+    this.stripePromise.then((stripe: Stripe | null) => {
         // get handler to stripe element
         const elements = stripe?.elements()
         // create a cart elements and hind the zip code,set style cart it means debit,credit cart type
@@ -63,7 +64,7 @@ export class StripeFormComponent implements OnInit {
       }) // end then()
   }
 
-  private purchase() {
+  protected purchase() {
     // set up params for confirmCardPayment(...)
     const optionPaymentMethod = {
       payment_method: {
@@ -81,12 +82,12 @@ export class StripeFormComponent implements OnInit {
           }
         } // billing detail
       }  // payment method
+
     }
     const optionHandlerAction = {handleActions: false}
     // this basic step
     this.paymentIntentService.getPaymentIntent(this.paymentInfo).subscribe(
       response => {
-        // console.log(response)
         this.stripePromise.then(
           (stripe : Stripe | null) => {
             stripe?.confirmCardPayment(response.client_secret, optionPaymentMethod, optionHandlerAction).then(
@@ -99,4 +100,5 @@ export class StripeFormComponent implements OnInit {
           })
       })
   }
+
 }

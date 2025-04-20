@@ -84,7 +84,12 @@
               "buildTarget": "lab-ag-stripe-elements-cli17:build:development"
             }
           },
-          "defaultConfiguration": "development"
+          "defaultConfiguration": "development",
+          "options": {
+            "port": 4200,
+            "host": "0.0.0.0",
+            "proxyConfig": "./src/proxy.conf.json"
+          }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
@@ -102,7 +107,8 @@
             "tsConfig": "tsconfig.spec.json",
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              "src/proxy.conf.json"
             ],
             "styles": [
               "src/styles.css"
