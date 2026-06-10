@@ -8,31 +8,27 @@ import com.ttknpdev.stripepaymentsapi.service.PaymentService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-// @SpringBootTest
 @WebMvcTest(controllers = PaymentControl.class)
 class UnderstandStripePaymentsApiApplicationTests {
 
     @Autowired
     private MockMvc mockMvc;
 
-    @MockBean // for injects this bean
+    @MockBean // For injects this bean
     private PaymentService paymentService;
 
     @Test
     public void testGeneratePaymentIntent() throws Exception {
-
         // Payment req
         PaymentInformation paymentInformation = new PaymentInformation();
         paymentInformation.setAmount(1000L);
@@ -57,7 +53,6 @@ class UnderstandStripePaymentsApiApplicationTests {
 
         // ** ResultActions class to handle the response of the REST API.
         ResultActions response = mockMvc.perform(request);
-
 
         // then - verify the output
         response

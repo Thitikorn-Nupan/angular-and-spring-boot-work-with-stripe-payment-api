@@ -9,7 +9,6 @@
             <pattern>%d{dd-MM-yyyy HH:mm:ss.SSS} %highlight(%-5level) [%blue(%t)] %green(%logger{45}) %line : %msg%n%throwable</pattern>
         </encoder>
     </appender>
-
     <root level="INFO,DEBUG">
         <appender-ref ref="CONSOLE"/>
     </root>

@@ -7,7 +7,6 @@ import com.ttknpdev.stripepaymentsapi.entity.PaymentInformation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -22,10 +21,10 @@ public class PaymentService {
     }
 
     public PaymentIntent createPaymentIntent(final PaymentInformation paymentInformation) throws StripeException {
-        List<String> paymentMethodTypes = new ArrayList<>(); //  Defines the types of payment methods accepted, in this case, just "card". it can have many types
-        paymentMethodTypes.add("card");
-        Map<String, Object> params = new HashMap<>(); //  params constructs a map containing parameters required to create a payment intent, such as amount, currency, and payment_method_types
-        // *** the key is uniq name
+        List<String> paymentMethodTypes = new ArrayList<>();
+        paymentMethodTypes.add("card"); //  Defines the types of payment methods accepted, in this case, just "card". it can have many types
+        Map<String, Object> params = new HashMap<>();
+        //  params constructs a map containing parameters required to create a payment intent, such as amount, currency, and payment_method_types *** the key is uniq name
         params.put("amount", paymentInformation.getAmount());
         params.put("currency", paymentInformation.getCurrency());
         params.put("receipt_email", paymentInformation.getSendToEmail());
