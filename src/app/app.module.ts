@@ -1,12 +1,11 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
+import {NgModule} from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {AppRoutingModule} from './app-routing.module';
+import {AppComponent} from './app.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import { StripeFormComponent } from './components/stripe-form/stripe-form.component';
+import {StripeFormComponent} from './components/stripe-form/stripe-form.component';
 import {HttpClientModule} from "@angular/common/http";
-import { CardComponent } from './components/card/card.component';
+import {CardComponent} from './components/card/card.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +18,7 @@ import { CardComponent } from './components/card/card.component';
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

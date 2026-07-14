@@ -8,8 +8,7 @@ import {ModelCard} from "../../entities/model-card";
 })
 export class CardComponent {
   @Input()
-  public declare modelCard : ModelCard
-
+  public declare modelCard: ModelCard
 
   protected getCssBackground() {
     return `url('${this.modelCard.background}')`
